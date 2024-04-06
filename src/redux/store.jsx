@@ -18,6 +18,6 @@ export const store = configureStore({
     relatedVideos: relatedVideosSlice,
     searchedVideos: searchVideoSlice,
     subscriptions: subscriptionsSlice,
-    uploadedChannelVideos: channelVideosSlice,
+    channelVideos: channelVideosSlice,
   },
 });

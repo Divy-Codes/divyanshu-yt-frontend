@@ -1,15 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-//Authentication would not be an asynchronous task. Hence no need for thunk or extraReducers
+//Authentication would NOT be an asynchronous task. Hence no need for thunk or extraReducers
 
 const initialState = {
-  accessToken: JSON.parse(sessionStorage.getItem("access-token")) || null,
-  user: JSON.parse(sessionStorage.getItem("user-profile")) || null,
+  accessToken: JSON.parse(sessionStorage.getItem('access-token')) || null,
+  user: JSON.parse(sessionStorage.getItem('user-profile')) || null,
   loading: false,
 };
 
 const authenticationSlice = createSlice({
-  name: "authentication",
+  name: 'authentication',
   initialState: initialState,
   reducers: {
     authPending: (state) => {
