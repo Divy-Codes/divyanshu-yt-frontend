@@ -1,4 +1,4 @@
-@import "../../base.scss"; //To use global variables
+@import '../../base.scss'; //To use global variables
 
 .header {
   height: 10vh;
@@ -66,17 +66,8 @@
     }
   }
 
-  .userFeatures {
-    background-color: transparent;
-    flex: 0.15;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 1.5rem;
-
-    .user {
-      border-radius: 50%;
-    }
+  .userAvatar {
+    border-radius: 50%;
   }
 }
 

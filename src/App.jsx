@@ -1,27 +1,27 @@
-import "./_app.scss";
-import Header from "./components/header/Header";
-import Sidebar from "./components/sidebar/Sidebar";
-import { Container } from "react-bootstrap";
-import HomeScreen from "./screens/homeScreen/HomeScreen";
-import { useEffect, useReducer } from "react";
-import LoginScreen from "./screens/loginScreen/LoginScreen";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import VideoPlayerScreen from "./screens/VideoPlayer/VideoPlayerScreen";
-import SearchScreen from "./screens/searchScreen/SearchScreen";
-import Subscriptions from "./screens/subscriptions/Subscriptions";
-import ChannelScreen from "./screens/channelScreen/ChannelScreen";
+import './_app.scss';
+import Header from './components/header/Header';
+import Sidebar from './components/sidebar/Sidebar';
+import { Container } from 'react-bootstrap';
+import HomeScreen from './screens/homeScreen/HomeScreen';
+import { useEffect, useReducer } from 'react';
+import LoginScreen from './screens/loginScreen/LoginScreen';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import VideoPlayerScreen from './screens/VideoPlayer/VideoPlayerScreen';
+import SearchScreen from './screens/searchScreen/SearchScreen';
+import Subscriptions from './screens/subscriptions/Subscriptions';
+import ChannelScreen from './screens/channelScreen/ChannelScreen';
 
 const HomeLayout = ({ children }) => {
   const [sidebar, toggleSidebar] = useReducer((value) => !value, false);
   return (
     <>
       <Header toggleSidebar={toggleSidebar} />
-      <div className="appContainer ">
+      <div className='appContainer '>
         <Sidebar sidebar={sidebar} toggleSidebar={toggleSidebar} />
         {/* Import Container from react-bootstrap. 
     'fluid' :  to remove default padding etc*/}
-        <Container fluid className="appMain">
+        <Container fluid className='appMain'>
           {children}
         </Container>
       </div>
@@ -36,15 +36,15 @@ export default function App() {
   const navigate = useNavigate();
   useEffect(() => {
     if (!loading && !accessToken) {
-      navigate("/auth");
+      navigate('/auth');
     }
   }, [accessToken, loading, navigate]);
 
   return (
     <Routes>
-      <Route path="/auth" element={<LoginScreen />} />
+      <Route path='/auth' element={<LoginScreen />} />
       <Route
-        path="/"
+        path='/'
         element={
           <HomeLayout>
             <HomeScreen />
@@ -52,7 +52,7 @@ export default function App() {
         }
       />
       <Route
-        path="/search/:query"
+        path='/search/:query'
         element={
           <HomeLayout>
             <SearchScreen />
@@ -60,7 +60,7 @@ export default function App() {
         }
       />
       <Route
-        path="video/:videoId"
+        path='video/:videoId'
         element={
           <HomeLayout>
             <VideoPlayerScreen />
@@ -68,7 +68,7 @@ export default function App() {
         }
       />
       <Route
-        path="feed/subscriptions"
+        path='feed/subscriptions'
         element={
           <HomeLayout>
             <Subscriptions />
@@ -76,14 +76,14 @@ export default function App() {
         }
       />
       <Route
-        path="channel/:channelId"
+        path='channel/:channelId'
         element={
           <HomeLayout>
             <ChannelScreen />
           </HomeLayout>
         }
       />
-      <Route path="*" element={<h3>Error 404: Not Found. Invalid URL </h3>} />
+      <Route path='*' element={<h3>Error 404: Not Found. Invalid URL </h3>} />
     </Routes>
   );
 }

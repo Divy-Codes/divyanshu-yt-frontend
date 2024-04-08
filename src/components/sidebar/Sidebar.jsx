@@ -1,4 +1,4 @@
-import "./_sidebar.scss";
+import './_sidebar.scss';
 import {
   MdHome,
   MdSubscriptions,
@@ -6,33 +6,35 @@ import {
   MdExitToApp,
   MdLibraryBooks,
   MdSentimentDissatisfied,
-} from "react-icons/md";
-import { IoMdThumbsUp } from "react-icons/io";
-import auth from "../../utils/firebase";
-import { signOut } from "firebase/auth";
-import { useDispatch } from "react-redux";
-import { logout } from "../../redux/slices/authSlice";
-import { Link } from "react-router-dom";
+} from 'react-icons/md';
+import { IoMdThumbsUp } from 'react-icons/io';
+import auth from '../../utils/firebase';
+import { signOut } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/slices/authSlice';
+import { Link } from 'react-router-dom';
 
 export default function Sidebar({ sidebar, toggleSidebar }) {
   const dispatch = useDispatch();
   const logOut = async () => {
     await signOut(auth);
     dispatch(logout());
-    sessionStorage.removeItem("access-token");
-    sessionStorage.removeItem("user-profile");
+    sessionStorage.removeItem('access-token');
+    sessionStorage.removeItem('user-profile');
   };
   return (
     <nav
-      className={sidebar ? "sidebar open" : "sidebar"}
+      className={sidebar ? 'sidebar open' : 'sidebar'}
       onClick={toggleSidebar}
     >
-      <li>
-        <MdHome size={23} />
-        <span>Home</span>
-      </li>
+      <Link to='/'>
+        <li>
+          <MdHome size={23} />
+          <span>Home</span>
+        </li>
+      </Link>
 
-      <Link to="/feed/subscriptions">
+      <Link to='/feed/subscriptions'>
         <li>
           <MdSubscriptions size={23} />
           <span>Subscriptions</span>

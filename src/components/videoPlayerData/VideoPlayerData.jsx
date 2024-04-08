@@ -1,18 +1,19 @@
-import "./_videoPlayerData.scss";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import './_videoPlayerData.scss';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
-import numeral from "numeral";
-import { useEffect, useReducer, useState } from "react";
-import { VscThumbsdown } from "react-icons/vsc";
-import { VscThumbsdownFilled } from "react-icons/vsc";
-import { VscThumbsup } from "react-icons/vsc";
-import { VscThumbsupFilled } from "react-icons/vsc";
-import { useDispatch, useSelector } from "react-redux";
+import numeral from 'numeral';
+import { useEffect, useReducer, useState } from 'react';
+import { VscThumbsdown } from 'react-icons/vsc';
+import { VscThumbsdownFilled } from 'react-icons/vsc';
+import { VscThumbsup } from 'react-icons/vsc';
+import { VscThumbsupFilled } from 'react-icons/vsc';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getChannelById,
   getSubscriptionStatus,
-} from "../../redux/slices/channelById";
+} from '../../redux/slices/channelById';
+import { likeDislikeVideo } from '../../redux/slices/likeVideoSlice';
 
 export default function VideoPlayerData({ video, videoId }) {
   const { title, publishedAt, description, channelTitle, channelId } =
@@ -42,42 +43,58 @@ export default function VideoPlayerData({ video, videoId }) {
     }
   }, [channel]);
 
+  //Like-Dislike Functionality
+  const handleLikeDislike = (likeStatus) => {
+    //likeStatus would be like or dislike
+    //If already liked/disliked and clicked again, we want to dispatch 'none' in likeStatus to slice
+    if (likeStatus == 'like') {
+      likeStatus = liked ? 'none' : 'like';
+      toggleLiked();
+    } else {
+      likeStatus = disliked ? 'none' : 'dislike';
+      toggleDisliked();
+    }
+    dispatch(likeDislikeVideo({ videoId, likeStatus }));
+  };
+
   const subscribed = useSelector(
     (state) => state.selectedChannelDetails.subscriptionStatus
   );
-  // const subscribed = true;
 
   return (
-    <div className="videoData">
-      <div className="title">
-        <h4 className="videoTitle">{title}</h4>
+    <div className='videoData'>
+      <div className='title'>
+        <h4 className='videoTitle'>{title}</h4>
         {/* <h4 className="videoTitle">Vidoe title here</h4> */}
       </div>
-      <div className="channelDetailsContainer d-flex justify-content-between align-items-center ">
-        <div className="channelDetails d-flex align-items-center gap-2">
+      <div className='channelDetailsContainer d-flex justify-content-between align-items-center '>
+        <div className='channelDetails d-flex align-items-center gap-2'>
           {channelSnippet && (
             <img
               src={channelSnippet?.thumbnails?.default?.url}
               // src="https://yt3.ggpht.com/ytc/AIf8zZRa_GyvmUD5k59-H2EPR41y0YF_LhRy9gJTgOGR=s88-c-k-c0x00ffffff-no-rj"
-              alt="Youtube channel thumbail image"
-              className="channelImage rounded-circle"
+              alt='Youtube channel thumbail image'
+              className='channelImage rounded-circle'
             />
           )}
-          <div className="channel d-flex flex-column ">
+          <div className='channel d-flex flex-column '>
             {/* <span className="channelTitle">channel Title</span> */}
-            <span className="channelTitle">{channelTitle}</span>
+            <span className='channelTitle'>{channelTitle}</span>
             {channelStatistics && (
-              <span className="subscribers">
-                {numeral(channelStatistics?.subscriberCount).format("0.a")}
+              <span className='subscribers'>
+                {numeral(channelStatistics?.subscriberCount).format('0.a')}
                 &nbsp;
                 {/* {numeral(150000).format("0.a")}&nbsp; */}subscribers
               </span>
             )}
           </div>
         </div>
-        <div className="subscribeAndLike d-flex gap-3">
-          <button className="likeUnlike">
-            <span onClick={toggleLiked} className="likeButton">
+        <div className='subscribeAndLike d-flex gap-3'>
+          <button className='likeUnlike'>
+            <span
+              onClick={() => handleLikeDislike('like')}
+              className='likeButton'
+            >
               {liked ? (
                 <span>
                   <VscThumbsupFilled size={26} />
@@ -89,10 +106,13 @@ export default function VideoPlayerData({ video, videoId }) {
               )}
               &nbsp;
               {/* {numeral(123000).format("0.a")} */}
-              {numeral(likeCount).format("0.a")}
+              {numeral(likeCount).format('0.a')}
             </span>
             <span>|</span>
-            <span onClick={toggleDisliked} className="dislikeButton">
+            <span
+              onClick={() => handleLikeDislike('dislike')}
+              className='dislikeButton'
+            >
               {disliked ? (
                 <span>
                   <VscThumbsdownFilled size={26} />
@@ -104,18 +124,18 @@ export default function VideoPlayerData({ video, videoId }) {
               )}
             </span>
           </button>
-          <div className="subscribeButton">
+          <div className='subscribeButton'>
             <button
-              className={`subscribe ${subscribed && "channelIsSubscribed"}`}
+              className={`subscribe ${subscribed && 'channelIsSubscribed'}`}
             >
-              {subscribed ? "Subscribed" : "Subscribe"}
+              {subscribed ? 'Subscribed' : 'Subscribe'}
             </button>
           </div>
         </div>
       </div>
-      <div className="description">
+      <div className='description'>
         <span>
-          <strong>{numeral(viewCount).format("0.a")} views &#x2022;</strong>
+          <strong>{numeral(viewCount).format('0.a')} views &#x2022;</strong>
           {/* <strong>{numeral(500000).format("0.a")}</strong> */}
         </span>
         &nbsp;
@@ -125,7 +145,7 @@ export default function VideoPlayerData({ video, videoId }) {
         </span>
         &nbsp;
         <p
-          className={!showMore ? "showLess descriptionText" : "descriptionText"}
+          className={!showMore ? 'showLess descriptionText' : 'descriptionText'}
         >
           {description}
           {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum
@@ -133,8 +153,8 @@ export default function VideoPlayerData({ video, videoId }) {
           asperiores eius cupiditate voluptatem cum amet laboriosam officiis ea
           numquam magni! */}
         </p>
-        <span className="showMore" onClick={toggleShowMore}>
-          {showMore ? "Show Less" : "Show More"}
+        <span className='showMore' onClick={toggleShowMore}>
+          {showMore ? 'Show Less' : 'Show More'}
         </span>
       </div>
     </div>
