@@ -1,0 +1,24 @@
+@import '../_base.scss';
+
+.two {
+  flex-grow: 5;
+  padding: 3vw 0;
+}
+
+@media (max-width: $breakpoint-small) {
+  .container {
+    height: 10rem;
+    .three {
+      height: 5rem;
+
+      skeleton {
+        height: 2rem;
+        width: 2rem;
+      }
+    }
+
+    .two {
+      padding: 0;
+    }
+  }
+}

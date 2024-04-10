@@ -1,11 +1,11 @@
-import { useParams } from "react-router-dom";
-import { Container, Row } from "react-bootstrap";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { getSearchedVideos } from "../../redux/slices/searchVideoSlice";
-import SearchedVideo from "../../components/searchedVideo/SearchedVideo";
+import { useParams } from 'react-router-dom';
+import { Container, Row } from 'react-bootstrap';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { getSearchedVideos } from '../../redux/slices/searchVideoSlice';
+import SearchedVideo from '../../components/searchedVideo/SearchedVideo';
 
 export default function SearchScreen() {
   const { query } = useParams();
@@ -22,7 +22,7 @@ export default function SearchScreen() {
   const videos = useSelector((state) => state.searchedVideos.videos);
 
   return (
-    <Container className="searchContainer">
+    <Container className='searchContainer'>
       <InfiniteScroll
         // height={300}
         dataLength={videos.length}
@@ -30,15 +30,6 @@ export default function SearchScreen() {
         hasMore={true}
         loader={<div>Loading...</div>}
       >
-        {/* <Row> */}
-        {/* {videos && !loading ? (
-          videos.map((video) => (
-            <SearchedVideo video={video} key={video.id.videoId} />
-          ))
-        ) : (
-          <h1>Loading...</h1>
-        )} */}
-
         {videos &&
           videos.map((video, i) => (
             <SearchedVideo
@@ -77,3 +68,14 @@ export default function SearchScreen() {
 //   return duplicateIndices;
 // }
 // console.log(duplicateIndices(idArray));
+
+{
+  /* <Row> 
+         {videos && !loading ? (
+          videos.map((video) => (
+            <SearchedVideo video={video} key={video.id.videoId} />
+          ))
+        ) : (
+          <h1>Loading...</h1>
+        )} */
+}
