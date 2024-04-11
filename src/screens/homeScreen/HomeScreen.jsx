@@ -1,17 +1,17 @@
-import "./_homeScreen.scss";
-import { Col, Container, Row } from "react-bootstrap";
-import Video from "../../components/video/Video";
-import CategoriesBar from "../../components/categoriesBar/CategoriesBar";
-import { useDispatch, useSelector } from "react-redux";
+import './_homeScreen.scss';
+import { Col, Container, Row } from 'react-bootstrap';
+import Video from '../../components/video/Video';
+import CategoriesBar from '../../components/categoriesBar/CategoriesBar';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getHomeVideos,
   getVideosByCategory,
-} from "../../redux/slices/homeVideosSlice";
-import { useEffect } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
+} from '../../redux/slices/homeVideosSlice';
+import { useEffect } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 // import { trackWindowScroll } from "react-lazy-load-image-component";
-import HomePageSkeleton from "../../skeletons/HomePageSkeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import HomePageSkeleton from '../../skeletons/HomePageSkeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 // export default trackWindowScroll(HomeScreen);
 
 export default function HomeScreen() {
@@ -29,7 +29,7 @@ export default function HomeScreen() {
   const fetchMoreData = () => {
     console.log(`homeScreen fetchmore data called`);
 
-    if (activeCategory == "All") {
+    if (activeCategory == 'All') {
       dispatch(getHomeVideos());
     } else {
       dispatch(getVideosByCategory(activeCategory));
@@ -37,15 +37,16 @@ export default function HomeScreen() {
   };
 
   return (
-    <Container className="Container" id="homeScreenContainer">
+    <Container className='Container' id='homeScreenContainer'>
       <CategoriesBar />
       {/* Row for video component */}
       <InfiniteScroll
         dataLength={videos.length}
         next={fetchMoreData}
         hasMore={true}
+        style={{ overflowY: 'hidden' }}
         loader={
-          <div className="spinner-border text-danger d-block mx-auto"></div>
+          <div className='spinner-border text-danger d-block mx-auto'></div>
         }
       >
         <Row>
