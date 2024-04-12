@@ -17,7 +17,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 export default function HomeScreen() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getHomeVideos());
+    // dispatch(getHomeVideos());
   }, [dispatch]);
 
   const {
@@ -30,9 +30,9 @@ export default function HomeScreen() {
     console.log(`homeScreen fetchmore data called`);
 
     if (activeCategory == 'All') {
-      dispatch(getHomeVideos());
+      // dispatch(getHomeVideos());
     } else {
-      dispatch(getVideosByCategory(activeCategory));
+      // dispatch(getVideosByCategory(activeCategory));
     }
   };
 
@@ -52,7 +52,13 @@ export default function HomeScreen() {
         <Row>
           {!loading
             ? videos.map((video) => (
-                <Col md={4} key={video.id.videoId || video.id}>
+                <Col
+                  xl={3}
+                  lg={4}
+                  md={4}
+                  sm={6}
+                  key={video.id.videoId || video.id}
+                >
                   <Video video={video} />
                 </Col>
               ))

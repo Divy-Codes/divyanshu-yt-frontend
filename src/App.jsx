@@ -14,13 +14,13 @@ import ChannelScreen from './screens/channelScreen/ChannelScreen';
 
 const HomeLayout = ({ children }) => {
   const [sidebar, toggleSidebar] = useReducer((value) => !value, false);
+
   return (
     <>
       <Header toggleSidebar={toggleSidebar} />
       <div className='appContainer '>
         <Sidebar sidebar={sidebar} toggleSidebar={toggleSidebar} />
-        {/* Import Container from react-bootstrap. 
-    'fluid' :  to remove default padding etc*/}
+        {/*'fluid' :  to remove default padding from bootstap Container*/}
         <Container fluid className='appMain'>
           {children}
         </Container>

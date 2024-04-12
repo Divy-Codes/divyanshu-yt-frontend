@@ -21,13 +21,19 @@ export default function Header({ toggleSidebar }) {
 
   return (
     <div className='header border border-dark'>
-      <MdOutlineMenu size={26} className='hamburger' onClick={toggleSidebar} />
-      <img
-        src='https://pngimg.com/uploads/youtube/youtube_PNG2.png'
-        alt='Youtube Logo'
-        className='youtubeLogo'
-        width={40}
-      />
+      <div className='menuContainer'>
+        <MdOutlineMenu
+          size={26}
+          className='hamburger'
+          onClick={toggleSidebar}
+        />
+        <img
+          src='https://pngimg.com/uploads/youtube/youtube_PNG2.png'
+          alt='Youtube Logo'
+          className='youtubeLogo'
+          width={40}
+        />
+      </div>
 
       <form onSubmit={searchVideo}>
         <input

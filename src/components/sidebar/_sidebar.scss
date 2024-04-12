@@ -1,4 +1,4 @@
-@import "../../base.scss";
+@import '../../base.scss';
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -8,6 +8,11 @@
   padding-top: 2rem;
   gap: 0.5rem;
   transition: transform 0.2s ease-in-out;
+  position: fixed;
+  left: 0;
+  top: 10vh;
+  transform: translateX(-100%);
+  overflow-y: auto;
 
   //Remove all styling of Links
   a {
@@ -39,30 +44,6 @@
 
 //When both .sidebar and .open are present. Can also nest as &.open inside .sidebar css class above
 .sidebar.open {
-  position: sticky;
-  top: 10vh;
-  // left: 0;
   z-index: 9;
   transform: translateX(0);
-}
-
-@media (max-width: $breakpoint-medium) {
-  .sidebar {
-    width: 90px;
-
-    li {
-      justify-content: center;
-      span {
-        display: none;
-      }
-    }
-  }
-}
-
-@media (max-width: $breakpoint-small) {
-  .sidebar {
-    transform: translateX(-100%);
-    position: absolute;
-    left: 0;
-  }
 }
