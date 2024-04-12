@@ -53,7 +53,7 @@ export default function HomeScreen() {
           {!loading
             ? videos.map((video) => (
                 <Col
-                  xl={3}
+                  // xl={3}
                   lg={4}
                   md={4}
                   sm={6}

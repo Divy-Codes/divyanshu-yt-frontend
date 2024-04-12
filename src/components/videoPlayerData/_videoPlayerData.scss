@@ -1,4 +1,4 @@
-@import "../../_base.scss";
+@import '../../_base.scss';
 
 .videoData {
   .title {
@@ -25,7 +25,7 @@
     }
     .subscribeButton {
       .subscribe {
-        cursor: pointer;
+        cursor: default;
         padding: 0.4rem 0.7rem;
         background-color: #eee;
         border: none;
@@ -66,6 +66,10 @@
         border: none;
         outline: none;
       }
+
+      .likeUnlikeIcon {
+        font-size: 1.5rem;
+      }
     }
   }
   .description {
@@ -88,5 +92,25 @@
       text-decoration: underline;
       cursor: pointer;
     }
+  }
+}
+
+@media (max-width: $breakpoint-small) {
+  .channelDetailsContainer {
+    flex-direction: column;
+    gap: 0.4rem;
+
+    .channelDetails {
+      align-self: flex-start;
+    }
+
+    .subscribeAndLike {
+      align-self: flex-start;
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  .subscribeAndLike {
   }
 }

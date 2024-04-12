@@ -17,6 +17,10 @@
     gap: 1rem;
     align-items: center;
     justify-content: center;
+
+    svg {
+      cursor: pointer;
+    }
   }
 
   .youtubeLogo {
@@ -32,6 +36,7 @@
     margin: 0 1rem;
     border-radius: 50px;
     background-color: $black-secondary;
+    flex-basis: 35%;
 
     input {
       width: 100%;
@@ -84,6 +89,12 @@
   }
 }
 
+@media (max-width: $breakpoint-tablets-landscape) {
+  .header {
+    height: 7vh;
+  }
+}
+
 @media (max-width: $breakpoint-tablets-potrait) {
   .header {
     form {
@@ -102,11 +113,19 @@
   .header {
     padding: 1.5rem 1rem;
 
+    .youtubeLogo {
+      display: none;
+    }
+
     form {
       flex-basis: 100%; //Take 100% length in samll screens
 
       input {
         padding: 0.25rem 1rem;
+      }
+
+      button {
+        padding: 0 0.75rem;
       }
     }
 

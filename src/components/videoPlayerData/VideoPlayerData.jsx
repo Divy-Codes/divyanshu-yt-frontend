@@ -4,6 +4,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 import numeral from 'numeral';
 import { useEffect, useReducer, useState } from 'react';
+import { IconContext } from 'react-icons';
 import { VscThumbsdown } from 'react-icons/vsc';
 import { VscThumbsdownFilled } from 'react-icons/vsc';
 import { VscThumbsup } from 'react-icons/vsc';
@@ -96,17 +97,25 @@ export default function VideoPlayerData({ video, videoId }) {
               className='likeButton'
             >
               {liked ? (
-                <span>
-                  <VscThumbsupFilled size={26} />
+                <span style={{ fontSize: '2rem' }}>
+                  <IconContext.Provider value={{ className: 'likeUnlikeIcon' }}>
+                    {/* <VscThumbsupFilled size={26} /> */}
+                    <VscThumbsupFilled />
+                  </IconContext.Provider>
                 </span>
               ) : (
                 <span>
-                  <VscThumbsup size={26} />
+                  <IconContext.Provider value={{ className: 'likeUnlikeIcon' }}>
+                    {/* <VscThumbsup size={26} /> */}
+                    <VscThumbsup />
+                  </IconContext.Provider>
                 </span>
               )}
               &nbsp;
               {/* {numeral(123000).format("0.a")} */}
-              {numeral(likeCount).format('0.a')}
+              <span className='likeCount'>
+                {numeral(likeCount).format('0.a')}
+              </span>
             </span>
             <span>|</span>
             <span
@@ -115,11 +124,17 @@ export default function VideoPlayerData({ video, videoId }) {
             >
               {disliked ? (
                 <span>
-                  <VscThumbsdownFilled size={26} />
+                  <IconContext.Provider value={{ className: 'likeUnlikeIcon' }}>
+                    {/* <VscThumbsdownFilled size={26} /> */}
+                    <VscThumbsdownFilled />
+                  </IconContext.Provider>
                 </span>
               ) : (
                 <span>
-                  <VscThumbsdown size={26} />
+                  <IconContext.Provider value={{ className: 'likeUnlikeIcon' }}>
+                    {/* <VscThumbsdown size={26} /> */}
+                    <VscThumbsdown />
+                  </IconContext.Provider>
                 </span>
               )}
             </span>
@@ -154,7 +169,7 @@ export default function VideoPlayerData({ video, videoId }) {
           numquam magni! */}
         </p>
         <span className='showMore' onClick={toggleShowMore}>
-          {showMore ? 'Show Less' : 'Show More'}
+          {showMore ? 'ShowLess' : 'Show More'}
         </span>
       </div>
     </div>

@@ -1,4 +1,4 @@
-@import "../../_base.scss";
+@import '../../_base.scss';
 
 .infoContainer {
   margin: 1rem 0;
@@ -110,8 +110,6 @@
     .thumbnailContainer {
       width: 5rem;
       height: 5rem;
-      .thumbnail {
-      }
     }
     .detailsContainer {
       gap: 0.3rem;
@@ -121,23 +119,27 @@
         line-height: 0.8;
       }
       .stats {
-        font-size: 0.6rem;
+        font-size: 0.7rem;
       }
       .description {
         @include lineClamp(2);
-        font-size: 0.5rem;
+        font-size: 0.7rem;
       }
       button {
-        font-size: 0.6rem;
+        font-size: 0.7rem;
         padding: 0.25rem 0.5rem;
       }
     }
   }
 }
 
-@media (max-width: 350px) {
+@media (max-width: $breakpoint-small) {
   .infoContainer {
     display: flex;
     flex-direction: column;
+
+    .description {
+      font-size: 0.7rem;
+    }
   }
 }
