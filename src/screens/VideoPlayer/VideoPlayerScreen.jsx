@@ -1,13 +1,13 @@
-import { Col, Row } from "react-bootstrap";
-import "./_videoPlayerScreen.scss";
-import VideoPlayerData from "../../components/videoPlayerData/VideoPlayerData";
-import Comments from "../../components/comments/Comments";
-import SidePlaylistVideo from "../../components/SidePlaylistVideos/SidePlaylistVideo";
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getVideoById } from "../../redux/slices/videoByIdSlice";
-import { getRelatedVideos } from "../../redux/slices/relatedVideosSlice";
+import { Col, Row } from 'react-bootstrap';
+import './_videoPlayerScreen.scss';
+import VideoPlayerData from '../../components/videoPlayerData/VideoPlayerData';
+import Comments from '../../components/comments/Comments';
+import SidePlaylistVideo from '../../components/SidePlaylistVideos/SidePlaylistVideo';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getVideoById } from '../../redux/slices/videoByIdSlice';
+import { getRelatedVideos } from '../../redux/slices/relatedVideosSlice';
 
 export default function VideoPlayerScreen() {
   const { videoId } = useParams();
@@ -34,12 +34,12 @@ export default function VideoPlayerScreen() {
 
   return (
     //We already have the Bootstrap Container in the HomeLayouot in App.jsx
-    <Row>
+    <Row className='playerRow'>
       <Col xl={8}>
-        <div className="videoPlayerContainer">
+        <div className='videoPlayerContainer'>
           <iframe
-            width="100%"
-            height="100%"
+            width='100%'
+            height='100%'
             src={`https://www.youtube.com/embed/${videoId}`}
             allowFullScreen
             title={video?.snippet?.title}
@@ -49,7 +49,8 @@ export default function VideoPlayerScreen() {
           // <VideoPlayerData videoId={videoId} />
           <VideoPlayerData video={video} videoId={videoId} />
         ) : (
-          <h5>Loading...</h5>
+          // <h5>Loading...</h5>
+          <div className='spinner-border text-danger d-block mx-auto'></div>
         )}
         <Comments
           videoId={videoId}

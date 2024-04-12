@@ -19,14 +19,22 @@ export default function Comments({ videoId, totalComments }) {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.authObject.user); //for profile pic
 
-  //Collapse the comments if windowWidth<1200px
+  //Calculate window width and set it to windowWidth state
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  // const [windowWidth, setWindowWidth] = useState(1199);
   useEffect(() => {
-    window.addEventListener('resize', setWindowWidth(window.innerWidth));
+    window.addEventListener('resize', () => setWindowWidth(window.innerWidth));
     return () =>
-      window.removeEventListener('resize', setWindowWidth(window.innerWidth));
+      window.removeEventListener('resize', () =>
+        setWindowWidth(window.innerWidth)
+      );
   }, []);
+
+  // const handleImageError = (fallback) => (event) =>
+  // (event.target.src = fallback);
+
+  const fallback = (e) =>
+    (e.target.src =
+      'https://yt3.ggpht.com/NOSx1LAKxaiTIBDjoFRm9xvT7Ytp_KjZTrxyci6QMc-2kpKJeDqqCaDl4KbGqoB-PLH4063mnQ=s88-c-k-c0x00ffffff-no-rj');
 
   const CollapsedComments = () => {
     const [openCommentsPanel, setCommentsPanel] = useState(false);
@@ -113,6 +121,7 @@ export default function Comments({ videoId, totalComments }) {
             src={userProfile.photoURL}
             // src="https://yt3.ggpht.com/NOSx1LAKxaiTIBDjoFRm9xvT7Ytp_KjZTrxyci6QMc-2kpKJeDqqCaDl4KbGqoB-PLH4063mnQ=s88-c-k-c0x00ffffff-no-rj"
             alt='Channel Thumbnail'
+            onError={fallback}
             className='rounded-circle'
           />
         )}

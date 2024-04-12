@@ -1,4 +1,9 @@
 @import '../../_base.scss';
+
+.playerRow {
+  padding: 1rem;
+}
+
 .videoPlayerContainer {
   width: 100%;
   height: auto;
@@ -10,5 +15,12 @@
     height: auto;
     aspect-ratio: 16/9;
     border-radius: 10px;
+  }
+}
+
+@media (max-width: $breakpoint-small) {
+  .playerRow {
+    // padding: 0.1rem;
+    padding: 2px;
   }
 }
