@@ -2,10 +2,9 @@ import './_header.scss';
 import { useState } from 'react';
 import { MdOutlineMenu } from 'react-icons/md';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { MdNotifications, MdApps } from 'react-icons/md';
 import { IoPersonCircle } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export default function Header({ toggleSidebar }) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -16,9 +15,6 @@ export default function Header({ toggleSidebar }) {
     navigate(`/search/${searchQuery}`);
   };
 
-  // const { photoURL } = useSelector((state) => state.authObject.user);
-  // console.log(photoURL);
-
   return (
     <div className='header border border-dark'>
       <div className='menuContainer'>
@@ -27,12 +23,14 @@ export default function Header({ toggleSidebar }) {
           className='hamburger'
           onClick={toggleSidebar}
         />
-        <img
-          src='https://pngimg.com/uploads/youtube/youtube_PNG2.png'
-          alt='Youtube Logo'
-          className='youtubeLogo'
-          width={40}
-        />
+        <Link to='/'>
+          <img
+            src='https://pngimg.com/uploads/youtube/youtube_PNG2.png'
+            alt='Youtube Logo'
+            className='youtubeLogo'
+            width={40}
+          />
+        </Link>
       </div>
 
       <form onSubmit={searchVideo}>

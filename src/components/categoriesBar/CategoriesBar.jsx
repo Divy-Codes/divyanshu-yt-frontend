@@ -1,16 +1,32 @@
-import { useEffect, useState } from "react";
-import "./_categoriesBar.scss";
+import { useEffect, useState } from 'react';
+import './_categoriesBar.scss';
 import {
   getHomeVideos,
   getVideosByCategory,
-} from "../../redux/slices/homeVideosSlice";
-import { useDispatch } from "react-redux";
-const str =
-  "All ReduxToolkit ReactJS ArundhatiRoy PortfolioWebsite WordpressBlogHosting marxistProject marxismExplained YanisVaroufakis DavidGraeber";
-const arr = str.split(" ");
+} from '../../redux/slices/homeVideosSlice';
+import { useDispatch } from 'react-redux';
+
+const arr = [
+  'All',
+  'Redux Toolkit',
+  'React Js Tutorial',
+  'Javascript Tutorial',
+  'React virtualized',
+  'Debouncing',
+  'Memoization',
+  'Throttling',
+  'Recursion',
+  'FrontEnd Developer',
+  'Full Stack Developer',
+  'JQuery',
+  'Abort Controller',
+  'Axios vs Fetch',
+  'Functional Programming',
+  'Higher Order Functions',
+];
 
 export default function CategoriesBar() {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState('All');
   const dispatch = useDispatch();
   const categoryClicked = (category) => {
     setActiveCategory(category);
@@ -18,7 +34,7 @@ export default function CategoriesBar() {
 
   useEffect(() => {
     console.log(`active category inside useEffect:`, activeCategory);
-    if (activeCategory == "All") {
+    if (activeCategory == 'All') {
       console.log(`all categ dispatched`);
       dispatch(getHomeVideos());
     } else {
@@ -28,12 +44,12 @@ export default function CategoriesBar() {
   }, [activeCategory, dispatch, setActiveCategory]);
 
   return (
-    <div className="categoriesBar">
+    <div className='categoriesBar'>
       {arr.map((category, index) => (
         <span
           key={index.toString()}
           onClick={() => categoryClicked(category)}
-          className={activeCategory === category ? "active" : ""}
+          className={activeCategory === category ? 'active' : ''}
         >
           {category} &nbsp;
         </span>

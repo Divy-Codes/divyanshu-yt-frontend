@@ -5,7 +5,7 @@ import {
   MdHistory,
   MdExitToApp,
   MdLibraryBooks,
-  MdSentimentDissatisfied,
+  MdSettings,
 } from 'react-icons/md';
 import { IoMdThumbsUp } from 'react-icons/io';
 import auth from '../../utils/firebase';
@@ -40,21 +40,21 @@ export default function Sidebar({ sidebar, toggleSidebar }) {
           <span>Subscriptions</span>
         </li>
       </Link>
-      <li>
+      <li className='dummyOption'>
         <IoMdThumbsUp size={23} />
         <span>Liked</span>
       </li>
-      <li>
+      <li className='dummyOption'>
         <MdHistory size={23} />
         <span>History</span>
       </li>
-      <li>
+      <li className='dummyOption'>
         <MdLibraryBooks size={23} />
         <span>Library</span>
       </li>
-      <li>
-        <MdSentimentDissatisfied size={23} />
-        <span>Lorem Ipsum</span>
+      <li className='dummyOption'>
+        <MdSettings size={23} />
+        <span>Settings</span>
       </li>
       <hr />
       <li onClick={logOut}>
