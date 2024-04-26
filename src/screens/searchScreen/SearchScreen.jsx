@@ -28,7 +28,10 @@ export default function SearchScreen() {
         dataLength={videos.length}
         next={fetchMoreData}
         hasMore={true}
-        loader={<div>Loading...</div>}
+        // loader={<div>Loading...</div>}
+        loader={
+          <div className='spinner-border text-danger d-block mx-auto'></div>
+        }
       >
         {videos &&
           videos.map((video, i) => (
@@ -39,8 +42,6 @@ export default function SearchScreen() {
               passedId={video.id.videoId || video.id.channelId}
             />
           ))}
-
-        {/* </Row> */}
       </InfiniteScroll>
     </Container>
   );

@@ -1,7 +1,11 @@
+// import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { Container } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLikedVideos } from '../../redux/slices/likedListSlice';
+// import SearchedVideo from '../../components/searchedVideo/SearchedVideo';
 import request from '../../utils/api';
-import './_searchedVideo.scss';
-
+// import './_searchedVideo.scss';
 import { Col, Row } from 'react-bootstrap';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
@@ -15,13 +19,38 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useNavigate } from 'react-router-dom';
 
-export default function SearchedVideo({ video }) {
-  const [duration, setDuration] = useState('');
-  const [viewCount, setViewCount] = useState('');
+export default function LikedVideos() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getLikedVideos());
+  }, [dispatch]);
+
+  const videos = useSelector((state) => state.likedVideosList.videos);
+
+  return (
+    <Container className='searchContainer'>
+      {videos &&
+        videos.map((video, i) => (
+          <LikedVideo
+            video={video}
+            key={video?.id}
+            // index={i}
+            // passedId={video.id.videoId || video.id.channelId}
+          />
+        ))}
+    </Container>
+  );
+}
+
+function LikedVideo({ video }) {
   let [channelThumbnailURL, setChannelThumbnail] = useState('');
   const navigate = useNavigate();
   const {
     id,
+    contentDetails: { duration },
+    statistics: { viewCount },
+
     snippet: {
       title,
       channelTitle,
@@ -32,81 +61,23 @@ export default function SearchedVideo({ video }) {
     },
   } = video;
 
-  console.log(`video:`, video);
-
-  const isVideo = id.kind === 'youtube#video';
-  console.log(`isVideo:`, isVideo);
-
-  const openChannel = () => {
-    navigate(`/channel/${id.channelId}`);
-  };
-
-  if (!isVideo)
-    return (
-      <Row
-        className='channelRow px-2 py-2 m-2 align-items-center'
-        onClick={openChannel}
-      >
-        <Col xs={12} sm={4} md={4} className='videoThumbnail'>
-          <div className='channelThumbnailWrapper'>
-            <LazyLoadImage
-              // src="https://i.ytimg.com/vi/mLFCSOLwfho/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBJa4akFCrF4oC0TwsRC8Jpy2E65w"
-              src={medium.url}
-              alt='Channel Thumbnail'
-              effect='blur'
-              className='channelThumbnailImage'
-              width='100%'
-            />
-          </div>
-        </Col>
-        <Col xs={12} sm={7} md={7} className='videoDetails channelDetails p-0'>
-          {/* <div className="otherDetails"> */}
-          <span className='channelTitle'>
-            {/* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora corrupti aperiam saepe mollitia quos odio nam  */}
-            {title}
-          </span>
-          <div className='channelDescription'>{description}</div>
-        </Col>
-      </Row>
-    );
-
   useEffect(() => {
-    if (isVideo) {
-      console.log(`is video`);
-
-      //Don't fetch video details for channels
-      (async () => {
-        const { data } = await request('/videos', {
-          params: {
-            part: 'snippet,contentDetails,statistics',
-            id: id.videoId,
-          },
-        });
-        setDuration(data.items[0].contentDetails.duration);
-        setViewCount(data.items[0].statistics.viewCount);
-      })();
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (isVideo) {
-      (async () => {
-        const { data } = await request('/channels', {
-          params: {
-            part: 'snippet',
-            id: channelId,
-          },
-        });
-        setChannelThumbnail(data.items[0].snippet.thumbnails.default.url);
-      })();
-    }
+    (async () => {
+      const { data } = await request('/channels', {
+        params: {
+          part: 'snippet',
+          id: channelId,
+        },
+      });
+      setChannelThumbnail(data.items[0].snippet.thumbnails.default.url);
+    })();
   }, [channelId]);
 
   const seconds = dayjs.duration(duration).asSeconds();
   const videoDuration = dayjs.utc(seconds * 1000).format('mm:ss');
 
   const watchVideo = () => {
-    navigate(`/video/${id.videoId}`);
+    navigate(`/video/${id}`);
   };
 
   return (
@@ -125,9 +96,7 @@ export default function SearchedVideo({ video }) {
             wrapperClassName='sideVideoWrapper'
             width='100%'
           />
-          {isVideo && (
-            <span className='sideVideoDuration'>{videoDuration}</span>
-          )}
+          <span className='sideVideoDuration'>{videoDuration}</span>
         </div>
       </Col>
       <Col xs={12} sm={6} md={6} className='videoDetails p-0'>
@@ -160,7 +129,7 @@ export default function SearchedVideo({ video }) {
             {channelTitle}
           </div>
         </div>
-        {isVideo && <div className='description'>{description}</div>}
+        <div className='description'>{description}</div>
         {/* </div> */}
       </Col>
     </Row>
