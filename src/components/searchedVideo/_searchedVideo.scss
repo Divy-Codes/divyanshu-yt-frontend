@@ -1,4 +1,4 @@
-@import "../../_base.scss";
+@import '../../_base.scss';
 
 .channelRow {
   // margin: 1rem 0;
@@ -111,6 +111,24 @@
       }
       .viewsRelativeTime {
         font-size: 1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 776px) {
+  .sidePlaylistSection {
+    .videoDetails {
+      gap: 0.15rem;
+      .sideVideoTitle {
+        font-size: 0.8rem;
+        @include lineClamp(1);
+      }
+      .sideChannelName {
+        font-size: 0.7rem;
+      }
+      .viewsRelativeTime {
+        font-size: 0.7rem;
       }
     }
   }

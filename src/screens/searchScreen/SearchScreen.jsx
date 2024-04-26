@@ -28,7 +28,10 @@ export default function SearchScreen() {
         dataLength={videos.length}
         next={fetchMoreData}
         hasMore={true}
-        loader={<div>Loading...</div>}
+        // loader={<div>Loading...</div>}
+        loader={
+          <div className='spinner-border text-danger d-block mx-auto'></div>
+        }
       >
         {videos &&
           videos.map((video, i) => (
@@ -39,43 +42,7 @@ export default function SearchScreen() {
               passedId={video.id.videoId || video.id.channelId}
             />
           ))}
-
-        {/* </Row> */}
       </InfiniteScroll>
     </Container>
-    // <div>Searched videos : {query}</div>
   );
-}
-
-//Finding duplicates in data
-// const idArray = videos.map((video) => video.id.videoId || video.id.channelId);
-// console.log(
-//   `Duplicate ids:`,
-//   idArray.filter((id, index) => idArray.indexOf(id) !== index)
-// );
-
-//If you want indices of duplicate data
-// function duplicateIndices(arr) {
-//   const duplicateIndices = [];
-//   const unique = [];
-//   for (let i = 0; i < arr.length; i++) {
-//     if (!unique.includes(arr[i])) {
-//       unique.push(arr[i]);
-//     } else {
-//       duplicateIndices.push(i);
-//     }
-//   }
-//   return duplicateIndices;
-// }
-// console.log(duplicateIndices(idArray));
-
-{
-  /* <Row> 
-         {videos && !loading ? (
-          videos.map((video) => (
-            <SearchedVideo video={video} key={video.id.videoId} />
-          ))
-        ) : (
-          <h1>Loading...</h1>
-        )} */
 }

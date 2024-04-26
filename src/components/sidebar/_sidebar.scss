@@ -40,6 +40,25 @@
   hr {
     border: 1px solid $border-color;
   }
+
+  .dummyOption {
+    position: relative;
+  }
+
+  .dummyOption:hover {
+    cursor: default;
+  }
+
+  .dummyOption:hover.dummyOption::after {
+    content: 'Dummy Option';
+    position: absolute;
+    top: -100%;
+    right: 0;
+    padding: 0.5rem 1rem;
+    background-color: #242424;
+    color: #fff;
+    border-radius: 5px;
+  }
 }
 
 //When both .sidebar and .open are present. Can also nest as &.open inside .sidebar css class above

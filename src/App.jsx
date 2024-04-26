@@ -11,6 +11,7 @@ import VideoPlayerScreen from './screens/VideoPlayer/VideoPlayerScreen';
 import SearchScreen from './screens/searchScreen/SearchScreen';
 import Subscriptions from './screens/subscriptions/Subscriptions';
 import ChannelScreen from './screens/channelScreen/ChannelScreen';
+import LikedVideos from './components/likedVideos/LikedVideos';
 
 const HomeLayout = ({ children }) => {
   const [sidebar, toggleSidebar] = useReducer((value) => !value, false);
@@ -80,6 +81,14 @@ export default function App() {
         element={
           <HomeLayout>
             <ChannelScreen />
+          </HomeLayout>
+        }
+      />
+      <Route
+        path='/likedVideos'
+        element={
+          <HomeLayout>
+            <LikedVideos />
           </HomeLayout>
         }
       />

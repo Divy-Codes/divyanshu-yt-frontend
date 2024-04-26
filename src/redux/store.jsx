@@ -9,6 +9,7 @@ import searchVideoSlice from './slices/searchVideoSlice';
 import subscriptionsSlice from './slices/subscriptionsSlice';
 import channelVideosSlice from './slices/channelVideosSlice';
 import likeDislikeSlice from './slices/likeVideoSlice';
+import likedListSlice from './slices/likedListSlice';
 
 export const store = configureStore({
   reducer: {
@@ -22,5 +23,6 @@ export const store = configureStore({
     subscriptions: subscriptionsSlice,
     channelVideos: channelVideosSlice,
     likeDislikeStatus: likeDislikeSlice,
+    likedVideosList: likedListSlice,
   },
 });
