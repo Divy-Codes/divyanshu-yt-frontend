@@ -1,5 +1,5 @@
-import request from "../../utils/api";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import request from '../../utils/api';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const initialState = {
   videos: [],
@@ -8,42 +8,38 @@ const initialState = {
 };
 
 export const getChannelVideos = createAsyncThunk(
-  "channelVideos/getChannelVideos",
+  'channelVideos/getChannelVideos',
   async (id) => {
     try {
       //STEP 1 : Get Uploaded Videos Playlist Id
-      const { data } = await request("/channels", {
+      const { data } = await request('/channels', {
         params: {
-          part: "contentDetails",
+          part: 'contentDetails',
           id: id,
         },
       });
-      console.log(`channel upload id:`, data.items);
       const uploadedPlaylistId =
         data.items[0].contentDetails.relatedPlaylists.uploads;
-      console.log(`uploadId:`, uploadedPlaylistId);
 
       //STEP 2: Get upload playlist Items
-      const response = await request("/playlistItems", {
+      const response = await request('/playlistItems', {
         params: {
-          part: "snippet,contentDetails",
+          part: 'snippet,contentDetails',
           playlistId: uploadedPlaylistId,
           maxResults: 50,
         },
       });
-      console.log(`Uploaded items:`, response);
       return {
         items: response.data.items,
       };
     } catch (error) {
-      console.log(`error:`, error.response.data);
       return { error: error.response.data };
     }
   }
 );
 
 const channelVideosSlice = createSlice({
-  name: "channelVideosSlice",
+  name: 'channelVideosSlice',
   initialState: initialState,
   extraReducers: (builder) => {
     builder

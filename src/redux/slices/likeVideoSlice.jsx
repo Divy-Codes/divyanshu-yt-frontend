@@ -22,7 +22,6 @@ export const likeDislikeVideo = createAsyncThunk(
           },
         }
       );
-      console.log(response);
       return {
         status: response.status,
       };

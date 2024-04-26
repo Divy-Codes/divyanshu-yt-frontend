@@ -9,10 +9,8 @@ import {
 } from '../../redux/slices/homeVideosSlice';
 import { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-// import { trackWindowScroll } from "react-lazy-load-image-component";
 import HomePageSkeleton from '../../skeletons/HomePageSkeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-// export default trackWindowScroll(HomeScreen);
 
 export default function HomeScreen() {
   const dispatch = useDispatch();
@@ -39,7 +37,6 @@ export default function HomeScreen() {
   return (
     <Container className='Container' id='homeScreenContainer'>
       <CategoriesBar />
-      {/* Row for video component */}
       <InfiniteScroll
         dataLength={videos.length}
         next={fetchMoreData}
@@ -52,13 +49,7 @@ export default function HomeScreen() {
         <Row>
           {!loading
             ? videos.map((video) => (
-                <Col
-                  // xl={3}
-                  lg={4}
-                  md={4}
-                  sm={6}
-                  key={video.id.videoId || video.id}
-                >
+                <Col lg={4} md={4} sm={6} key={video.id.videoId || video.id}>
                   <Video video={video} />
                 </Col>
               ))
@@ -72,11 +63,3 @@ export default function HomeScreen() {
     </Container>
   );
 }
-
-// COMMENTS :-
-/*
-    1.) 3 large sized columns. 4 medium sized columns
-    <Col lg={3} md={4}> 
-    <Video />
-    </Col>
-*/

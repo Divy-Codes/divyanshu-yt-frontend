@@ -1,13 +1,13 @@
-import { useParams } from "react-router-dom";
-import "./_channelScreen.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { getChannelVideos } from "../../redux/slices/channelVideosSlice";
-import { Col, Container, Row } from "react-bootstrap";
-import Video from "../../components/video/Video";
-import ChannelVideosSkeleton from "../../skeletons/ChannelVideosSkeleton";
-import { getChannelById } from "../../redux/slices/channelById";
-import numeral from "numeral";
+import { useParams } from 'react-router-dom';
+import './_channelScreen.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { getChannelVideos } from '../../redux/slices/channelVideosSlice';
+import { Col, Container, Row } from 'react-bootstrap';
+import Video from '../../components/video/Video';
+import ChannelVideosSkeleton from '../../skeletons/ChannelVideosSkeleton';
+import { getChannelById } from '../../redux/slices/channelById';
+import numeral from 'numeral';
 
 export default function ChannelScreen() {
   const [snippet, setSnippet] = useState({});
@@ -22,14 +22,10 @@ export default function ChannelScreen() {
     dispatch(getChannelById(channelId));
   }, [channelId, dispatch]);
 
-  console.log(`channel id:`, channelId);
-
   const { videos, loading } = useSelector((state) => state.channelVideos);
-  console.log(`videos:`, videos);
 
   const channel = useSelector((state) => state.selectedChannelDetails.channel);
 
-  console.log(`Channel Details:`, channel);
   // const {
   //   snippet: {
   //     customUrl,
@@ -47,40 +43,38 @@ export default function ChannelScreen() {
       setStatistics(channel.statistics);
     }
   }, [channel]);
-  console.log(`snippet:`, snippet);
-  console.log(`statistics:`, statistics);
 
   return (
     <>
       {channel && (
-        <div className="infoContainer">
-          <div className="thumbnailContainer">
+        <div className='infoContainer'>
+          <div className='thumbnailContainer'>
             <img
               src={snippet?.thumbnails?.high?.url}
-              alt="Channel Thumbnail"
-              className="thumbnail"
+              alt='Channel Thumbnail'
+              className='thumbnail'
             />
           </div>
-          <div className="detailsContainer">
+          <div className='detailsContainer'>
             <h2>{snippet?.title}</h2>
-            <div className="stats">
-              <span className="customUrl">
+            <div className='stats'>
+              <span className='customUrl'>
                 {snippet?.customUrl} &bull;&nbsp;
               </span>
-              <span className="videoCount">
-                {numeral(statistics?.videoCount).format("0.a")} videos
+              <span className='videoCount'>
+                {numeral(statistics?.videoCount).format('0.a')} videos
                 &bull;&nbsp;
               </span>
-              <span className="subscriberCount">
-                {numeral(statistics?.subscriberCount).format("0.a")} Subscribers
+              <span className='subscriberCount'>
+                {numeral(statistics?.subscriberCount).format('0.a')} Subscribers
               </span>
             </div>
-            <div className="description">{snippet?.description}</div>
+            <div className='description'>{snippet?.description}</div>
             <button>Subscribe</button>
           </div>
         </div>
       )}
-      <Container className="Container" id="homeScreenContainer">
+      <Container className='Container' id='homeScreenContainer'>
         <Row>
           {!loading && videos
             ? videos.map((video) => (

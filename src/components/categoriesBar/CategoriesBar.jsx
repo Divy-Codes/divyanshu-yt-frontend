@@ -33,12 +33,9 @@ export default function CategoriesBar() {
   };
 
   useEffect(() => {
-    console.log(`active category inside useEffect:`, activeCategory);
     if (activeCategory == 'All') {
-      console.log(`all categ dispatched`);
       dispatch(getHomeVideos());
     } else {
-      console.log(`active categ dispatched`);
       dispatch(getVideosByCategory(activeCategory));
     }
   }, [activeCategory, dispatch, setActiveCategory]);

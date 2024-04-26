@@ -1,5 +1,5 @@
-import request from "../../utils/api";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import request from '../../utils/api';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   loading: false,
@@ -8,12 +8,12 @@ const initialState = {
 };
 
 export const getSubscriptions = createAsyncThunk(
-  "subscriptions/getSubscriptions",
+  'subscriptions/getSubscriptions',
   async (args, { getState }) => {
     try {
-      const { data } = await request("/subscriptions", {
+      const { data } = await request('/subscriptions', {
         params: {
-          part: "snippet,contentDetails",
+          part: 'snippet,contentDetails',
           mine: true,
           maxResults: 50,
         },
@@ -25,14 +25,13 @@ export const getSubscriptions = createAsyncThunk(
         videos: data.items,
       };
     } catch (error) {
-      console.log(`error:`, error.message, error.response.data);
       return { error: error.response.data };
     }
   }
 );
 
 const subscriptionsSlice = createSlice({
-  name: "getSubscriptions/subscriptionSlice",
+  name: 'getSubscriptions/subscriptionSlice',
   initialState: initialState,
   extraReducers: (builder) => {
     builder

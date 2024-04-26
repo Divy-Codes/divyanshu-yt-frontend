@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import request from "../../utils/api";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import request from '../../utils/api';
 
 const initialState = {
   comments: null,
@@ -9,12 +9,10 @@ const initialState = {
 };
 
 export const postComment = createAsyncThunk(
-  "commentthreads/postComment",
+  'commentthreads/postComment',
   async (args, { getState }) => {
     const { videoId, commentText } = args;
-    console.log(`id,text`, videoId, commentText);
     try {
-      console.log(`Entered postComment try part`);
       const dataObj = {
         snippet: {
           videoId: videoId,
@@ -26,52 +24,45 @@ export const postComment = createAsyncThunk(
         },
       };
 
-      // await request.post("/commentThreads", dataObj, {
-      const response = await request.post("/commentThreads", dataObj, {
+      const response = await request.post('/commentThreads', dataObj, {
         params: {
-          part: "snippet",
+          part: 'snippet',
         },
         headers: {
           Authorization: `Bearer ${getState().authObject.accessToken}`,
         },
       });
-      console.log(`postComment request done`);
-      console.log(`comment posted response:`, response);
       return {
         commentPosted: response.data,
       };
     } catch (error) {
-      console.log(`Comments Posting Error:`, error.message);
-      console.log(`error:`, error.response.data);
       return { error: error.response.data };
     }
   }
 );
 
 export const getCommentsById = createAsyncThunk(
-  "commentThreads/getCommentsById",
+  'commentThreads/getCommentsById',
   async (id) => {
     try {
-      const { data } = await request("/commentThreads", {
+      const { data } = await request('/commentThreads', {
         params: {
-          part: "snippet",
+          part: 'snippet',
           videoId: id,
           maxResults: 25,
         },
       });
-      console.log(`response by id:`, data);
       return {
         comments: data.items,
       };
     } catch (error) {
-      console.log(`error:`, error.response.data);
       return { error: error.response.data };
     }
   }
 );
 
 const commentByIdSlice = createSlice({
-  name: "commentInfo",
+  name: 'commentInfo',
   initialState: initialState,
   extraReducers: (builder) => {
     builder

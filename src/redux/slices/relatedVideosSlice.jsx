@@ -1,7 +1,7 @@
 //Related videos deprecated by youtube. So workaround is to search with keyword. Keyword would be current video's title
 
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import request from "../../utils/api";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import request from '../../utils/api';
 
 const initialState = {
   videos: [],
@@ -11,32 +11,30 @@ const initialState = {
 };
 
 export const getRelatedVideos = createAsyncThunk(
-  "relatedVideos/getRelatedVideos",
+  'relatedVideos/getRelatedVideos',
   async (videoTitle) => {
     try {
-      const { data } = await request("/search", {
+      const { data } = await request('/search', {
         params: {
-          part: "snippet",
+          part: 'snippet',
           maxResults: 25,
           q: videoTitle,
-          type: "video",
+          type: 'video',
           // pageToken: getState().homeVideos.nextPageToken,
         },
       });
-      console.log(`response for related videos:`, data);
       return {
         items: data.items,
         // nextPageToken: data.nextPageToken,
       };
     } catch (error) {
-      console.log(`error:`, error.response.data);
       return { error: error.response.data };
     }
   }
 );
 
 const relatedVideosSlice = createSlice({
-  name: "relatedVideos",
+  name: 'relatedVideos',
   initialState: initialState,
   extraReducers: (builder) => {
     builder

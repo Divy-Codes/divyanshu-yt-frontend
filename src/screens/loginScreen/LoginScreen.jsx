@@ -1,16 +1,16 @@
-import "./_loginScreen.scss";
-import { FcGoogle } from "react-icons/fc";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
-import auth from "../../utils/firebase";
+import './_loginScreen.scss';
+import { FcGoogle } from 'react-icons/fc';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import auth from '../../utils/firebase';
 import {
   authPending,
   authRejected,
   authSuccess,
   loadProfile,
-} from "../../redux/slices/authSlice";
+} from '../../redux/slices/authSlice';
 
 export default function LoginScreen() {
   const dispatch = useDispatch();
@@ -22,11 +22,9 @@ export default function LoginScreen() {
       dispatch(authPending());
 
       const provider = new GoogleAuthProvider();
-      provider.addScope("https://www.googleapis.com/auth/youtube.force-ssl");
+      provider.addScope('https://www.googleapis.com/auth/youtube.force-ssl');
       const response = await signInWithPopup(auth, provider);
 
-      //REMOVE LATER
-      console.log(`response:`, response);
       const credential = GoogleAuthProvider.credentialFromResult(response);
       const accessToken = credential.accessToken;
 
@@ -39,8 +37,8 @@ export default function LoginScreen() {
       dispatch(loadProfile(userProfile));
 
       //Save the data in session storage. Otherwise we lose the access token on every refresh
-      sessionStorage.setItem("access-token", JSON.stringify(accessToken));
-      sessionStorage.setItem("user-profile", JSON.stringify(userProfile));
+      sessionStorage.setItem('access-token', JSON.stringify(accessToken));
+      sessionStorage.setItem('user-profile', JSON.stringify(userProfile));
     } catch (error) {
       dispatch(authRejected(error.message));
     }
@@ -50,17 +48,17 @@ export default function LoginScreen() {
   const accessToken = useSelector((state) => state.authObject.accessToken);
   useEffect(() => {
     if (accessToken) {
-      navigate("/");
+      navigate('/');
     }
   }, [accessToken, navigate]);
 
   return (
-    <div className="login">
-      <div className="loginContainer">
-        <div className="imgContainer">
+    <div className='login'>
+      <div className='loginContainer'>
+        <div className='imgContainer'>
           <img
-            src="https://pngimg.com/uploads/youtube/youtube_PNG2.png"
-            alt="youtube Logo"
+            src='https://pngimg.com/uploads/youtube/youtube_PNG2.png'
+            alt='youtube Logo'
           />
         </div>
         <button onClick={login}>
@@ -68,7 +66,7 @@ export default function LoginScreen() {
         </button>
         <p>
           A YouTube Frontend project. Created with &nbsp;
-          <span className="heart">&#9829;</span>
+          <span className='heart'>&#9829;</span>
           <br />
           <span> &mdash; Divyanshu Gambhir</span>
         </p>

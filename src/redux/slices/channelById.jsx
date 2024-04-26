@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import request from "../../utils/api";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import request from '../../utils/api';
 
 const initialState = {
   channel: null,
@@ -9,33 +9,31 @@ const initialState = {
 };
 
 export const getChannelById = createAsyncThunk(
-  "channelInfo/getChannelById",
+  'channelInfo/getChannelById',
   async (id) => {
     try {
-      const { data } = await request("/channels", {
+      const { data } = await request('/channels', {
         params: {
-          part: "snippet,contentDetails,statistics",
+          part: 'snippet,contentDetails,statistics',
           id,
         },
       });
-      // console.log(`response by id:`, data);
       return {
         channel: data.items[0],
       };
     } catch (error) {
-      console.log(`error:`, error.response.data);
       return { error: error.response.data };
     }
   }
 );
 
 export const getSubscriptionStatus = createAsyncThunk(
-  "channelInfo/getSubscriptionStatus",
+  'channelInfo/getSubscriptionStatus',
   async (id, { getState }) => {
     try {
-      const { data } = await request("/subscriptions", {
+      const { data } = await request('/subscriptions', {
         params: {
-          part: "snippet",
+          part: 'snippet',
           forChannelId: id,
           mine: true,
         },
@@ -47,14 +45,13 @@ export const getSubscriptionStatus = createAsyncThunk(
         subscriptionStatus: data.items.length !== 0,
       };
     } catch (error) {
-      console.log(`error:`, error.message, error.response.data);
       return { error: error.response.data };
     }
   }
 );
 
 const channelByIdSlice = createSlice({
-  name: "channelInfo",
+  name: 'channelInfo',
   initialState: initialState,
   extraReducers: (builder) => {
     builder
@@ -77,11 +74,3 @@ const channelByIdSlice = createSlice({
 });
 
 export default channelByIdSlice.reducer;
-
-/**
- *data.items[0]
- .contentDetails.duration
- .snippet.publishedAt .channelTitle .description
- .snippet.localized
-
- */

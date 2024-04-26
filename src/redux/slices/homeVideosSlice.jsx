@@ -1,43 +1,40 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import request from "../../utils/api";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import request from '../../utils/api';
 
 export const getVideosByCategory = createAsyncThunk(
-  "videosByCategory/getVideosByCategory",
+  'videosByCategory/getVideosByCategory',
   async (keyword, { getState }) => {
-    console.log(`prevToken:`, getState().homeVideos.nextPageToken);
     try {
-      const { data } = await request.get("/search", {
+      const { data } = await request.get('/search', {
         params: {
-          part: "snippet",
+          part: 'snippet',
           maxResults: 20,
           q: keyword,
           pageToken: getState().homeVideos.nextPageToken,
-          type: "video",
+          type: 'video',
         },
       });
 
-      console.log(`nextToken:`, data.nextPageToken);
       return {
         items: data.items,
         nextPageToken: data.nextPageToken,
         category: keyword,
       };
     } catch (error) {
-      console.log(`error:`, error.message);
       return { error: error.message };
     }
   }
 );
 
 export const getHomeVideos = createAsyncThunk(
-  "homeVideos/getHomeVideos",
+  'homeVideos/getHomeVideos',
   async (args, { getState }) => {
     try {
-      const { data } = await request.get("/videos", {
+      const { data } = await request.get('/videos', {
         params: {
-          part: "snippet,contentDetails,statistics",
-          chart: "mostPopular",
-          regionCode: "IN",
+          part: 'snippet,contentDetails,statistics',
+          chart: 'mostPopular',
+          regionCode: 'IN',
           maxResults: 20,
           pageToken: getState().homeVideos.nextPageToken,
         },
@@ -45,22 +42,21 @@ export const getHomeVideos = createAsyncThunk(
       return {
         items: data.items,
         nextPageToken: data.nextPageToken,
-        category: "All",
+        category: 'All',
       };
     } catch (error) {
-      console.log(`Error:${error.message}`);
       return { error: error.message };
     }
   }
 );
 
 const homeVideosSlice = createSlice({
-  name: "homeVideos",
+  name: 'homeVideos',
   initialState: {
     videos: [],
     nextPageToken: null,
     loading: false,
-    activeCategory: "All",
+    activeCategory: 'All',
   },
   extraReducers: (builder) => {
     builder
@@ -111,6 +107,3 @@ const homeVideosSlice = createSlice({
 });
 
 export default homeVideosSlice.reducer;
-
-//TRY THIS. Convert it to set for only unique videos
-// videos:(state.activeCategory === action.payload.category) ? ([...new Set([...state.videos, ...action.payload.items])]) : action.payload.videos

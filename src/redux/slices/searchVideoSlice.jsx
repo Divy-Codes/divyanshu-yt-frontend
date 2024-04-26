@@ -1,26 +1,24 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import request from "../../utils/api";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import request from '../../utils/api';
 
 const initialState = {
   videos: [],
   error: null,
   loading: false,
   nextPageToken: null,
-  query: "",
+  query: '',
 };
 
 export const getSearchedVideos = createAsyncThunk(
-  "searchedVideos/getSearchedVideos",
+  'searchedVideos/getSearchedVideos',
   async (query, { getState }) => {
-    console.log(`query in slice:`, query);
-
     try {
-      const { data } = await request("/search", {
+      const { data } = await request('/search', {
         params: {
-          part: "snippet",
+          part: 'snippet',
           maxResults: 25,
           q: query,
-          type: "video,channel",
+          type: 'video,channel',
           pageToken: getState().searchedVideos.nextPageToken,
         },
       });
@@ -30,14 +28,13 @@ export const getSearchedVideos = createAsyncThunk(
         query: query,
       };
     } catch (error) {
-      console.log(`error:`, error.response.data);
       return { error: error.response.data };
     }
   }
 );
 
 const searchedVideoSlice = createSlice({
-  name: "relatedVideos",
+  name: 'relatedVideos',
   initialState: initialState,
   extraReducers: (builder) => {
     builder

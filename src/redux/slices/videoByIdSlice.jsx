@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import request from "../../utils/api";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import request from '../../utils/api';
 
 const initialState = {
   loading: false,
@@ -8,12 +8,12 @@ const initialState = {
 };
 
 export const getVideoById = createAsyncThunk(
-  "videoInfo/getVideoById",
+  'videoInfo/getVideoById',
   async (id) => {
     try {
-      const response = await request("/videos", {
+      const response = await request('/videos', {
         params: {
-          part: "snippet,contentDetails,statistics",
+          part: 'snippet,contentDetails,statistics',
           id: id,
         },
       });
@@ -25,14 +25,13 @@ export const getVideoById = createAsyncThunk(
         },
       };
     } catch (error) {
-      console.log(`error:`, error.message);
       return { error: error.message };
     }
   }
 );
 
 const videoByIdSlice = createSlice({
-  name: "videoInfo",
+  name: 'videoInfo',
   initialState: initialState,
   extraReducers: (builder) => {
     builder

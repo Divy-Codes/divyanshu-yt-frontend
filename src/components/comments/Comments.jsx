@@ -29,9 +29,6 @@ export default function Comments({ videoId, totalComments }) {
       );
   }, []);
 
-  // const handleImageError = (fallback) => (event) =>
-  // (event.target.src = fallback);
-
   const fallback = (e) =>
     (e.target.src =
       'https://yt3.ggpht.com/NOSx1LAKxaiTIBDjoFRm9xvT7Ytp_KjZTrxyci6QMc-2kpKJeDqqCaDl4KbGqoB-PLH4063mnQ=s88-c-k-c0x00ffffff-no-rj');
@@ -65,12 +62,6 @@ export default function Comments({ videoId, totalComments }) {
               Hide Comments
             </p>
             <ul className='commentsList'>
-              {/* {[...Array(20)].map((comment, i) => (
-                <li key={i}>
-                  <Comment />
-                </li>
-              ))} */}
-
               {comments &&
                 comments.map((comment, i) => (
                   <li key={i}>
@@ -91,7 +82,7 @@ export default function Comments({ videoId, totalComments }) {
     setCommentText('');
   };
 
-  //To update comments, another call to getCommentsById(videoId) doesn't work as data on servers isn't getting updated immediately. It takes more than a minute sometimes for updation.
+  //To update comments, another call to getCommentsById(videoId) doesn't work as data on servers isn't getting updated immediately. It takes more than 3-4 minutes sometimes for updation.
   //This is a somewhat safe workaround because, we are updating from the very data provided by API upon adding a comment. We aren't simply hard-coding it.
   useEffect(() => {
     if (commentPosted !== null) {
@@ -119,7 +110,6 @@ export default function Comments({ videoId, totalComments }) {
         {userProfile && (
           <img
             src={userProfile.photoURL}
-            // src="https://yt3.ggpht.com/NOSx1LAKxaiTIBDjoFRm9xvT7Ytp_KjZTrxyci6QMc-2kpKJeDqqCaDl4KbGqoB-PLH4063mnQ=s88-c-k-c0x00ffffff-no-rj"
             alt='Channel Thumbnail'
             onError={fallback}
             className='rounded-circle'

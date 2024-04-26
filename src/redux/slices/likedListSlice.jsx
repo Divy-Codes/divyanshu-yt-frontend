@@ -21,12 +21,10 @@ export const getLikedVideos = createAsyncThunk(
           Authorization: `Bearer ${getState().authObject.accessToken}`,
         },
       });
-      console.log(`liked videos list:`, data.items);
       return {
         items: data.items,
       };
     } catch (error) {
-      console.log(`error:`, error.response.data);
       return { error: error.response.data };
     }
   }

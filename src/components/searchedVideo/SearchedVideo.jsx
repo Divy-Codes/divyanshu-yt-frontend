@@ -32,10 +32,7 @@ export default function SearchedVideo({ video }) {
     },
   } = video;
 
-  console.log(`video:`, video);
-
   const isVideo = id.kind === 'youtube#video';
-  console.log(`isVideo:`, isVideo);
 
   const openChannel = () => {
     navigate(`/channel/${id.channelId}`);
@@ -50,7 +47,6 @@ export default function SearchedVideo({ video }) {
         <Col xs={12} sm={4} md={4} className='videoThumbnail'>
           <div className='channelThumbnailWrapper'>
             <LazyLoadImage
-              // src="https://i.ytimg.com/vi/mLFCSOLwfho/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBJa4akFCrF4oC0TwsRC8Jpy2E65w"
               src={medium.url}
               alt='Channel Thumbnail'
               effect='blur'
@@ -60,11 +56,7 @@ export default function SearchedVideo({ video }) {
           </div>
         </Col>
         <Col xs={12} sm={7} md={7} className='videoDetails channelDetails p-0'>
-          {/* <div className="otherDetails"> */}
-          <span className='channelTitle'>
-            {/* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora corrupti aperiam saepe mollitia quos odio nam  */}
-            {title}
-          </span>
+          <span className='channelTitle'>{title}</span>
           <div className='channelDescription'>{description}</div>
         </Col>
       </Row>
@@ -72,8 +64,6 @@ export default function SearchedVideo({ video }) {
 
   useEffect(() => {
     if (isVideo) {
-      console.log(`is video`);
-
       //Don't fetch video details for channels
       (async () => {
         const { data } = await request('/videos', {
@@ -117,7 +107,6 @@ export default function SearchedVideo({ video }) {
       <Col xs={12} sm={5} md={5} className='videoThumbnail'>
         <div className='sideVideoThumbnail'>
           <LazyLoadImage
-            // src="https://i.ytimg.com/vi/mLFCSOLwfho/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBJa4akFCrF4oC0TwsRC8Jpy2E65w"
             src={medium.url}
             alt='Video Thumbnail'
             effect='blur'
@@ -131,25 +120,15 @@ export default function SearchedVideo({ video }) {
         </div>
       </Col>
       <Col xs={12} sm={6} md={6} className='videoDetails p-0'>
-        {/* <div className="otherDetails"> */}
-        <span className='sideVideoTitle'>
-          {/* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora corrupti aperiam saepe mollitia quos odio nam  */}
-          {title}
-        </span>
+        <span className='sideVideoTitle'>{title}</span>
 
         <div className='viewsRelativeTime'>
           <span className='sideViews'>{numeral(viewCount).format('0.a')}</span>
-          {/* <span className="sideViews">{numeral("12800").format("0.a")}</span> */}
           &nbsp;&bull;&nbsp;
           <span className='relativeTime'>{dayjs(publishedAt).fromNow()}</span>
-          {/* <span className="relativeTime">
-              {dayjs("2020-06-06").fromNow()}
-            </span> */}
         </div>
         <div className='sideVideoDetails'>
           <div className='sideChannelName'>
-            {/* Divyanshu Codes Youtube Divyanshu Codes Youtube Divyanshu Codes
-              Youtube */}
             {channelThumbnailURL && (
               <LazyLoadImage
                 src={channelThumbnailURL}
@@ -161,7 +140,6 @@ export default function SearchedVideo({ video }) {
           </div>
         </div>
         {isVideo && <div className='description'>{description}</div>}
-        {/* </div> */}
       </Col>
     </Row>
   );

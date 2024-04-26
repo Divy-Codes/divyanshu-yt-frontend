@@ -13,7 +13,6 @@ import { signOut } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../redux/slices/authSlice';
 import { Link } from 'react-router-dom';
-import { getLikedVideos } from '../../redux/slices/likedListSlice';
 
 export default function Sidebar({ sidebar, toggleSidebar }) {
   const dispatch = useDispatch();
@@ -22,10 +21,6 @@ export default function Sidebar({ sidebar, toggleSidebar }) {
     dispatch(logout());
     sessionStorage.removeItem('access-token');
     sessionStorage.removeItem('user-profile');
-  };
-
-  const fetchLikedVideos = () => {
-    dispatch(getLikedVideos());
   };
 
   return (

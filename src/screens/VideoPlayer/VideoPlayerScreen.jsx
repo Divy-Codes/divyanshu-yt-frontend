@@ -30,8 +30,6 @@ export default function VideoPlayerScreen() {
     (state) => state.relatedVideos
   );
 
-  relatedVideos && console.log(`related videos in screen:`, relatedVideos);
-
   return (
     //We already have the Bootstrap Container in the HomeLayouot in App.jsx
     <Row className='playerRow'>
@@ -46,10 +44,8 @@ export default function VideoPlayerScreen() {
           />
         </div>
         {!loading && video ? (
-          // <VideoPlayerData videoId={videoId} />
           <VideoPlayerData video={video} videoId={videoId} />
         ) : (
-          // <h5>Loading...</h5>
           <div className='spinner-border text-danger d-block mx-auto'></div>
         )}
         <Comments

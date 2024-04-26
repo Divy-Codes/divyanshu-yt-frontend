@@ -1,11 +1,8 @@
-// import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLikedVideos } from '../../redux/slices/likedListSlice';
-// import SearchedVideo from '../../components/searchedVideo/SearchedVideo';
 import request from '../../utils/api';
-// import './_searchedVideo.scss';
 import { Col, Row } from 'react-bootstrap';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
@@ -31,14 +28,7 @@ export default function LikedVideos() {
   return (
     <Container className='searchContainer'>
       {videos &&
-        videos.map((video, i) => (
-          <LikedVideo
-            video={video}
-            key={video?.id}
-            // index={i}
-            // passedId={video.id.videoId || video.id.channelId}
-          />
-        ))}
+        videos.map((video, i) => <LikedVideo video={video} key={video?.id} />)}
     </Container>
   );
 }
@@ -88,7 +78,6 @@ function LikedVideo({ video }) {
       <Col xs={12} sm={5} md={5} className='videoThumbnail'>
         <div className='sideVideoThumbnail'>
           <LazyLoadImage
-            // src="https://i.ytimg.com/vi/mLFCSOLwfho/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBJa4akFCrF4oC0TwsRC8Jpy2E65w"
             src={medium.url}
             alt='Video Thumbnail'
             effect='blur'
@@ -100,25 +89,15 @@ function LikedVideo({ video }) {
         </div>
       </Col>
       <Col xs={12} sm={6} md={6} className='videoDetails p-0'>
-        {/* <div className="otherDetails"> */}
-        <span className='sideVideoTitle'>
-          {/* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora corrupti aperiam saepe mollitia quos odio nam  */}
-          {title}
-        </span>
+        <span className='sideVideoTitle'>{title}</span>
 
         <div className='viewsRelativeTime'>
           <span className='sideViews'>{numeral(viewCount).format('0.a')}</span>
-          {/* <span className="sideViews">{numeral("12800").format("0.a")}</span> */}
           &nbsp;&bull;&nbsp;
           <span className='relativeTime'>{dayjs(publishedAt).fromNow()}</span>
-          {/* <span className="relativeTime">
-              {dayjs("2020-06-06").fromNow()}
-            </span> */}
         </div>
         <div className='sideVideoDetails'>
           <div className='sideChannelName'>
-            {/* Divyanshu Codes Youtube Divyanshu Codes Youtube Divyanshu Codes
-              Youtube */}
             {channelThumbnailURL && (
               <LazyLoadImage
                 src={channelThumbnailURL}
@@ -130,7 +109,6 @@ function LikedVideo({ video }) {
           </div>
         </div>
         <div className='description'>{description}</div>
-        {/* </div> */}
       </Col>
     </Row>
   );
