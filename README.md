@@ -21,7 +21,3 @@ Implemented the following in this project:-
 ![Static Badge](https://img.shields.io/badge/Firebase-5A29E4?style=plastic&logo=firebase&logoColor=yellow&labelColor=%23fff&color=%23FF6500)
 ![Static Badge](https://img.shields.io/badge/Javascript-black?style=plastic&logo=javascript&logoColor=%23%23FFF455&labelColor=%23000&color=%23DC6B19)
 
-
-## Bloopers
-This is not the original project repository and therefore some details like branches might not be visible. This was done because I unknowingly exposed the API Key in the original repo 😅🤡
-
